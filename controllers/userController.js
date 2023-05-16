@@ -44,10 +44,13 @@ module.exports.register = async (req, res) => {
     const token = jwt.sign(user.toJSON(), "Order", {
       expiresIn: "2h",
     });
-    user.token = token;
+    // user.token = token;
+    console.log(token);
     user.save();
     // return new user
-    res.status(201).json({ user, success: true });
+    res
+      .status(201)
+      .json({ user: user.name, userId: user._id, token, success: true });
   } catch (err) {
     console.log(err);
   }
@@ -70,10 +73,12 @@ module.exports.login = async (req, res) => {
       const token = jwt.sign(user.toJSON(), "Order", {
         expiresIn: "2h",
       });
-      user.token = token;
+      // user.token = token;
       // user.save();
       return res.status(200).json({
-        user,
+        user: user.name,
+        userId: user._id,
+        token,
         success: true,
       });
     }
@@ -90,7 +95,6 @@ module.exports.welcomeUser = (req, res) => {
 module.exports.CreateOrder = async (req, res) => {
   try {
     const newOrder = new Order(req.body);
-
     console.log(newOrder);
 
     const InsertOrder = await newOrder.save();
@@ -114,16 +118,16 @@ module.exports.GetOrder = async (req, res) => {
   })
     .limit(pageSize)
     .skip(pageSize * page)
-    .sort({ user_id: 1 });
+    .sort({ listTitle: 1 });
 };
 
 module.exports.GetOrderById = async (req, res) => {
   try {
-    // const id = req.params.id;
-    const user_id = req.query.user_id;
+    const id = req.params.id;
+    // const listName = req.query.listName;
     // console.log(user_id);
     // console.log(id);
-    const getOrder = await Order.find({ user_id: user_id });
+    const getOrder = await Order.findById(id);
     if (!getOrder) {
       res.status(404).send();
     }

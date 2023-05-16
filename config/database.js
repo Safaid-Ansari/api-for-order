@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  // "mongodb+srv://SafaidAnsari:iBcR2P7fTHF4UZBx@cluster0.vmqnisk.mongodb.net/Order-API",
   "mongodb://localhost/Order-API",
   {
     useNewUrlParser: true,

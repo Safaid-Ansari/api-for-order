@@ -1,15 +1,11 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  user_id: {
+  listTitle: {
     type: String,
     required: true,
   },
-  sub_total: {
-    type: String,
-    required: true,
-  },
-  phone_number: {
+  listDescription: {
     type: String,
     required: true,
   },

@@ -19,7 +19,7 @@ router.post(
 );
 
 router.get("/", userController.GetOrder);
-router.get("/get-order", userController.GetOrderById);
+router.get("/get-order/:id", userController.GetOrderById);
 router.patch(
   "/update-order/:id",
   passport.authenticate("jwt", { session: false }),
